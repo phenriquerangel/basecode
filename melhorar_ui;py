@@ -1,0 +1,321 @@
+import os
+
+def create_file(path, content):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write(content.strip())
+    print(f"✅ Design Atualizado: {path}")
+
+root = "basecode"
+
+# ==========================================
+# 1. BACKEND: DJANGO JAZZMIN (Painel Moderno)
+# ==========================================
+
+# Adicionamos 'django-jazzmin' aos requisitos
+be_requirements = """
+Django>=5.0,<6.0
+djangorestframework>=3.14
+psycopg2-binary>=2.9
+django-cors-headers>=4.3
+gunicorn>=21.2
+django-jazzmin>=2.6.0
+"""
+
+# Settings com Jazzmin configurado (Elegante e Dark Mode opcional)
+be_settings = """
+import os
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-dev-key')
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+ALLOWED_HOSTS = ['*']
+
+INSTALLED_APPS = [
+    'jazzmin',  # <--- JAZZMIN DEVE VIR ANTES DO ADMIN
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'rest_framework',
+    'corsheaders',
+    'questoes',
+]
+
+MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+ROOT_URLCONF = 'core.urls'
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+WSGI_APPLICATION = 'core.wsgi.application'
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('DB_NAME', 'banco_questoes'),
+        'USER': os.environ.get('DB_USER', 'postgres'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'sua_senha_local'),
+        'HOST': os.environ.get('DB_HOST', 'localhost'),
+        'PORT': os.environ.get('DB_PORT', '5432'),
+    }
+}
+
+AUTH_PASSWORD_VALIDATORS = [
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
+]
+
+LANGUAGE_CODE = 'pt-br'
+TIME_ZONE = 'UTC'
+USE_I18N = True
+USE_TZ = True
+STATIC_URL = 'static/'
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
+
+# Configuração Visual do Jazzmin
+JAZZMIN_SETTINGS = {
+    "site_title": "Banco de Questões",
+    "site_header": "Administração",
+    "site_brand": "MathMaster",
+    "welcome_sign": "Bem-vindo ao Painel do Professor",
+    "copyright": "Codebase Studies",
+    "search_model": "questoes.Questao",
+    "topmenu_links": [
+        {"name": "Home",  "url": "admin:index", "permissions": ["auth.view_user"]},
+        {"name": "Ver Site", "url": "http://localhost:3000", "new_window": True},
+    ],
+    "show_ui_builder": False,
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "navbar_small_text": False,
+    "footer_small_text": False,
+    "body_small_text": False,
+    "brand_small_text": False,
+    "brand_colour": "navbar-primary",
+    "accent": "accent-primary",
+    "navbar": "navbar-dark",
+    "no_navbar_border": False,
+    "navbar_fixed": False,
+    "layout_boxed": False,
+    "footer_fixed": False,
+    "sidebar_fixed": True,
+    "sidebar": "sidebar-dark-primary",
+    "sidebar_nav_small_text": False,
+    "theme": "flatly",  # Tema Moderno
+    "dark_mode_theme": None,
+    "button_classes": {
+        "primary": "btn-primary",
+        "secondary": "btn-secondary",
+        "info": "btn-info",
+        "warning": "btn-warning",
+        "danger": "btn-danger",
+        "success": "btn-success"
+    }
+}
+"""
+
+# ==========================================
+# 2. FRONTEND: MODERN UI (CSS + Layout)
+# ==========================================
+
+# Index HTML com Fonte Inter (Google Fonts)
+fe_index = """
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Banco de Questões</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+      body { margin: 0; font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+"""
+
+# App.jsx com Design System embutido
+fe_app = """
+import React, { useState, useEffect } from 'react';
+
+function App() {
+  const [questoes, setQuestoes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [erro, setErro] = useState(null);
+  const API_URL = "/api/questoes/";
+
+  useEffect(() => {
+    fetch(API_URL)
+      .then(r => {
+        if (!r.ok) throw new Error('Status: ' + r.status);
+        return r.json();
+      })
+      .then(d => { setQuestoes(d); setLoading(false); })
+      .catch(e => { setErro("Erro ao carregar dados."); setLoading(false); });
+  }, []);
+
+  // --- STYLES (CSS-in-JS para simplicidade) ---
+  const styles = {
+    container: { maxWidth: '900px', margin: '0 auto', padding: '40px 20px' },
+    header: { textAlign: 'center', marginBottom: '50px' },
+    title: { fontSize: '2.5rem', color: '#111827', marginBottom: '10px', letterSpacing: '-0.025em' },
+    subtitle: { color: '#6b7280', fontSize: '1.1rem' },
+    grid: { display: 'grid', gap: '24px' },
+    card: {
+      backgroundColor: 'white',
+      borderRadius: '16px',
+      padding: '32px',
+      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
+      border: '1px solid #f3f4f6',
+      transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+    },
+    metaHeader: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' },
+    badge: {
+      padding: '6px 12px',
+      borderRadius: '9999px',
+      fontSize: '0.75rem',
+      fontWeight: '700',
+      textTransform: 'uppercase',
+      letterSpacing: '0.05em',
+    },
+    topic: { backgroundColor: '#eff6ff', color: '#2563eb' },
+    level: (l) => ({
+      backgroundColor: l === 'F' ? '#ecfdf5' : l === 'M' ? '#fff7ed' : '#fef2f2',
+      color: l === 'F' ? '#059669' : l === 'M' ? '#d97706' : '#dc2626',
+    }),
+    enunciado: { fontSize: '1.25rem', color: '#1f2937', lineHeight: '1.6', marginBottom: '24px', fontWeight: '600' },
+    optionsGrid: { display: 'grid', gap: '12px', marginBottom: '24px' },
+    option: {
+      padding: '12px 16px',
+      backgroundColor: '#f9fafb',
+      border: '1px solid #e5e7eb',
+      borderRadius: '8px',
+      color: '#374151',
+      fontSize: '0.95rem'
+    },
+    details: {
+      marginTop: '20px',
+      paddingTop: '20px',
+      borderTop: '1px solid #e5e7eb',
+    },
+    summary: {
+      color: '#4f46e5',
+      fontWeight: '600',
+      cursor: 'pointer',
+      listStyle: 'none', // Tenta esconder o triângulo padrão
+    },
+    answerBox: {
+      marginTop: '16px',
+      padding: '16px',
+      backgroundColor: '#f0fdf4',
+      border: '1px solid #bbf7d0',
+      borderRadius: '8px',
+      color: '#166534'
+    }
+  };
+
+  return (
+    <div style={styles.container}>
+      <header style={styles.header}>
+        <h1 style={styles.title}>🎓 MathMaster</h1>
+        <p style={styles.subtitle}>Banco de Questões Inteligente</p>
+      </header>
+
+      <main>
+        {loading && <div style={{textAlign: 'center', color: '#6b7280'}}>Carregando questões...</div>}
+        
+        {erro && (
+          <div style={{...styles.card, borderLeft: '4px solid #dc2626', backgroundColor: '#fef2f2'}}>
+            <h3 style={{color: '#991b1b', margin: 0}}>Erro de Conexão</h3>
+            <p style={{color: '#b91c1c'}}>{erro}</p>
+          </div>
+        )}
+
+        {!loading && !erro && (
+          <div style={styles.grid}>
+            {questoes.map(q => (
+              <div key={q.id} style={styles.card} className="question-card">
+                <div style={styles.metaHeader}>
+                  <span style={{...styles.badge, ...styles.topic}}>{q.topico_nome || 'Geral'}</span>
+                  <span style={{...styles.badge, ...styles.level(q.dificuldade)}}>
+                    {q.dificuldade === 'F' ? 'Fácil' : q.dificuldade === 'M' ? 'Médio' : 'Difícil'}
+                  </span>
+                </div>
+
+                <h2 style={styles.enunciado}>{q.enunciado}</h2>
+
+                <div style={styles.optionsGrid}>
+                  {['a', 'b', 'c', 'd'].map(opt => (
+                    <div key={opt} style={styles.option}>
+                      <strong style={{marginRight: '8px', color: '#9ca3af'}}>{opt.toUpperCase()})</strong>
+                      {q[`alternativa_${opt}`]}
+                    </div>
+                  ))}
+                </div>
+
+                <details style={styles.details}>
+                  <summary style={styles.summary}>👁️ Ver Resposta e Explicação</summary>
+                  <div style={styles.answerBox}>
+                    <p style={{margin: '0 0 8px 0'}}><strong>Gabarito: Letra {q.correta}</strong></p>
+                    <p style={{margin: 0, fontSize: '0.95rem'}}>{q.justificativa}</p>
+                  </div>
+                </details>
+              </div>
+            ))}
+          </div>
+        )}
+      </main>
+    </div>
+  );
+}
+
+export default App;
+"""
+
+files = {
+    f"{root}/backend/requirements.txt": be_requirements,
+    f"{root}/backend/core/settings.py": be_settings,
+    f"{root}/frontend/index.html": fe_index,
+    f"{root}/frontend/src/App.jsx": fe_app,
+}
+
+print("🎨 Aplicando atualizações de Design (Jazzmin + Modern UI)...")
+for path, content in files.items():
+    create_file(path, content)
+print("✨ Arquivos atualizados! Agora faça o Build do Backend (v8) e Frontend (v7).")

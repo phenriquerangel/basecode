@@ -1,0 +1,23 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+@page { size: A4; margin: 2cm; }
+body { font-family: Helvetica, sans-serif; }
+.questao { margin-bottom: 20px; page-break-inside: avoid; }
+.gabarito { page-break-before: always; }
+table { width: 100%; border-collapse: collapse; }
+td, th { border: 1px solid #ddd; padding: 8px; }
+</style></head><body>
+<h1>MathMaster - Prova</h1>
+{% for q in questoes %}
+<div class="questao">
+  <p><strong>{{ forloop.counter }})</strong> {{ q.enunciado }}</p>
+  <ul>
+    <li>a) {{ q.alternativa_a }}</li><li>b) {{ q.alternativa_b }}</li>
+    <li>c) {{ q.alternativa_c }}</li><li>d) {{ q.alternativa_d }}</li>
+  </ul>
+</div>
+{% endfor %}
+<div class="gabarito"><h1>Gabarito</h1>
+<table><tr><th>#</th><th>Resp</th><th>Explicação</th></tr>
+{% for q in questoes %}
+<tr><td>{{ forloop.counter }}</td><td>{{ q.correta }}</td><td>{{ q.justificativa }}</td></tr>
+{% endfor %}</table></div></body></html>

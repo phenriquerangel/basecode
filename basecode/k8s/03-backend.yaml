@@ -13,18 +13,11 @@ spec:
       labels:
         app: backend
     spec:
-      initContainers:
-      - name: migrate
-        image: phenriquernagel/banco-questoes-backend:v2
-        command: ["python", "manage.py", "migrate"]
-        envFrom:
-        - secretRef:
-            name: app-secrets
       containers:
       - name: backend
-        image: phenriquernagel/banco-questoes-backend:v2
-        ports:
-        - containerPort: 8000
+        image: phenriquernagel/banco-questoes-backend:v22
+        imagePullPolicy: Always
+        ports: [{containerPort: 8000}]
         envFrom:
         - secretRef:
             name: app-secrets
@@ -41,4 +34,4 @@ spec:
     - protocol: TCP
       port: 8000
       targetPort: 8000
-  type: NodePort
+  type: ClusterIP

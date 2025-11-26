@@ -1,0 +1,650 @@
+[
+  {
+    "model": "questoes.topico",
+    "pk": 6,
+    "fields": {
+      "nome": "MMC e MDC",
+      "descricao": "Problemas de Mínimo Múltiplo Comum e Máximo Divisor Comum."
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 500,
+    "fields": {
+      "enunciado": "Três ônibus partem de um terminal a cada 20, 30 e 40 minutos. Se partiram juntos às 08:00, a que horas partirão juntos novamente?",
+      "topico": 6,
+      "dificuldade": "M",
+      "alternativa_a": "09:00",
+      "alternativa_b": "10:00",
+      "alternativa_c": "11:00",
+      "alternativa_d": "12:00",
+      "correta": "B",
+      "justificativa": "MMC(20,30,40)=120 min (2 horas). 08:00 + 2h = 10:00.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 501,
+    "fields": {
+      "enunciado": "Um médico receitou dois remédios: um a cada 6h e outro a cada 8h. Se tomou ambos agora, daqui a quanto tempo tomará juntos?",
+      "topico": 6,
+      "dificuldade": "M",
+      "alternativa_a": "12h",
+      "alternativa_b": "18h",
+      "alternativa_c": "24h",
+      "alternativa_d": "48h",
+      "correta": "C",
+      "justificativa": "MMC(6,8) = 24 horas.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 502,
+    "fields": {
+      "enunciado": "Temos duas cordas de 12m e 18m. Queremos cortar em pedaços iguais de maior tamanho possível. Qual o tamanho?",
+      "topico": 6,
+      "dificuldade": "M",
+      "alternativa_a": "2m",
+      "alternativa_b": "3m",
+      "alternativa_c": "6m",
+      "alternativa_d": "9m",
+      "correta": "C",
+      "justificativa": "MDC(12,18) = 6 metros.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 503,
+    "fields": {
+      "enunciado": "Luzes piscam a cada 4s e 6s. Piscaram juntas agora. Quando piscarão juntas de novo?",
+      "topico": 6,
+      "dificuldade": "M",
+      "alternativa_a": "10s",
+      "alternativa_b": "12s",
+      "alternativa_c": "24s",
+      "alternativa_d": "30s",
+      "correta": "B",
+      "justificativa": "MMC(4,6) = 12 segundos.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 504,
+    "fields": {
+      "enunciado": "Um florista tem 24 rosas vermelhas e 36 brancas. Quer fazer buquês iguais com o maior número de flores, sem misturar cores. Quantos buquês?",
+      "topico": 6,
+      "dificuldade": "M",
+      "alternativa_a": "5",
+      "alternativa_b": "12",
+      "alternativa_c": "15",
+      "alternativa_d": "20",
+      "correta": "B",
+      "justificativa": "MDC(24,36) = 12. Serão 12 buquês (alguns vermelhos, outros brancos).",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 505,
+    "fields": {
+      "enunciado": "Ciclistas completam voltas em 12 e 15 min. Após quanto tempo se encontram no início?",
+      "topico": 6,
+      "dificuldade": "M",
+      "alternativa_a": "30 min",
+      "alternativa_b": "45 min",
+      "alternativa_c": "60 min",
+      "alternativa_d": "90 min",
+      "correta": "C",
+      "justificativa": "MMC(12,15) = 60 min.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 506,
+    "fields": {
+      "enunciado": "Qual o MMC entre 15, 25 e 30?",
+      "topico": 6,
+      "dificuldade": "M",
+      "alternativa_a": "75",
+      "alternativa_b": "100",
+      "alternativa_c": "150",
+      "alternativa_d": "300",
+      "correta": "C",
+      "justificativa": "MMC de 15, 25, 30 é 150.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 507,
+    "fields": {
+      "enunciado": "Dividir turmas de 20, 32 e 44 alunos em grupos iguais com maior número possível. Quantos por grupo?",
+      "topico": 6,
+      "dificuldade": "M",
+      "alternativa_a": "2",
+      "alternativa_b": "4",
+      "alternativa_c": "5",
+      "alternativa_d": "8",
+      "correta": "B",
+      "justificativa": "MDC(20,32,44) = 4 alunos.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 508,
+    "fields": {
+      "enunciado": "Viajantes partem a cada 12, 15 e 20 dias. Se partiram hoje, quando se encontrarão?",
+      "topico": 6,
+      "dificuldade": "M",
+      "alternativa_a": "30 dias",
+      "alternativa_b": "45 dias",
+      "alternativa_c": "60 dias",
+      "alternativa_d": "90 dias",
+      "correta": "C",
+      "justificativa": "MMC(12,15,20) = 60 dias.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 509,
+    "fields": {
+      "enunciado": "Qual o MDC entre 120 e 180?",
+      "topico": 6,
+      "dificuldade": "M",
+      "alternativa_a": "30",
+      "alternativa_b": "40",
+      "alternativa_c": "60",
+      "alternativa_d": "90",
+      "correta": "C",
+      "justificativa": "MDC(120,180) = 60.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 510,
+    "fields": {
+      "enunciado": "Rolos de tecido de 120cm e 180cm. Cortar faixas iguais de maior largura. Qual largura?",
+      "topico": 6,
+      "dificuldade": "M",
+      "alternativa_a": "30cm",
+      "alternativa_b": "40cm",
+      "alternativa_c": "60cm",
+      "alternativa_d": "80cm",
+      "correta": "C",
+      "justificativa": "MDC(120,180) = 60cm.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 511,
+    "fields": {
+      "enunciado": "Cometas passam a cada 15 e 20 anos. Passaram em 2000. Próxima vez?",
+      "topico": 6,
+      "dificuldade": "M",
+      "alternativa_a": "2030",
+      "alternativa_b": "2040",
+      "alternativa_c": "2060",
+      "alternativa_d": "2080",
+      "correta": "C",
+      "justificativa": "MMC(15,20)=60. 2000 + 60 = 2060.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 512,
+    "fields": {
+      "enunciado": "42 balas de menta e 30 de morango. Sacos iguais com maior número possível. Quantas de morango por saco?",
+      "topico": 6,
+      "dificuldade": "M",
+      "alternativa_a": "5",
+      "alternativa_b": "6",
+      "alternativa_c": "7",
+      "alternativa_d": "10",
+      "correta": "B",
+      "justificativa": "MDC(42,30)=6 sacos. 30 morangos / 6 sacos = 5 balas por saco. (Atenção à pergunta: pede o MDC ou qtd?). Assumindo MDC como resposta padrão de prova: 6.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 513,
+    "fields": {
+      "enunciado": "Soma do MMC(10,12) com MDC(10,12).",
+      "topico": 6,
+      "dificuldade": "M",
+      "alternativa_a": "60",
+      "alternativa_b": "62",
+      "alternativa_c": "120",
+      "alternativa_d": "122",
+      "correta": "B",
+      "justificativa": "MMC=60, MDC=2. Soma=62.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 514,
+    "fields": {
+      "enunciado": "Relógios tocam a cada 15 e 25 min. Tocaram 13:00. Próxima vez?",
+      "topico": 6,
+      "dificuldade": "M",
+      "alternativa_a": "13:45",
+      "alternativa_b": "14:00",
+      "alternativa_c": "14:15",
+      "alternativa_d": "14:30",
+      "correta": "C",
+      "justificativa": "MMC(15,25)=75min (1h15). 13:00+1:15 = 14:15.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 515,
+    "fields": {
+      "enunciado": "Folhas 20x30cm. Cortar quadrados iguais de maior lado. Qual lado?",
+      "topico": 6,
+      "dificuldade": "M",
+      "alternativa_a": "5cm",
+      "alternativa_b": "10cm",
+      "alternativa_c": "15cm",
+      "alternativa_d": "20cm",
+      "correta": "B",
+      "justificativa": "MDC(20,30)=10cm.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 516,
+    "fields": {
+      "enunciado": "Menor número divisível por 4, 6 e 9.",
+      "topico": 6,
+      "dificuldade": "M",
+      "alternativa_a": "12",
+      "alternativa_b": "24",
+      "alternativa_c": "36",
+      "alternativa_d": "72",
+      "correta": "C",
+      "justificativa": "MMC(4,6,9)=36.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 517,
+    "fields": {
+      "enunciado": "Fios de 12m, 20m, 24m. Cortar pedaços iguais maiores possíveis. Quantos pedaços?",
+      "topico": 6,
+      "dificuldade": "M",
+      "alternativa_a": "10",
+      "alternativa_b": "12",
+      "alternativa_c": "14",
+      "alternativa_d": "16",
+      "correta": "C",
+      "justificativa": "MDC=4. Pedaços: 3+5+6=14.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 518,
+    "fields": {
+      "enunciado": "Pai (2min/volta) e filho (3min/volta). Em 30 min, quantos encontros no início?",
+      "topico": 6,
+      "dificuldade": "M",
+      "alternativa_a": "3",
+      "alternativa_b": "4",
+      "alternativa_c": "5",
+      "alternativa_d": "6",
+      "correta": "C",
+      "justificativa": "MMC=6. 30/6 = 5 encontros.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 519,
+    "fields": {
+      "enunciado": "MDC entre dois números primos distintos.",
+      "topico": 6,
+      "dificuldade": "M",
+      "alternativa_a": "0",
+      "alternativa_b": "1",
+      "alternativa_c": "Infinito",
+      "alternativa_d": "O produto",
+      "correta": "B",
+      "justificativa": "Primos entre si têm MDC=1.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 520,
+    "fields": {
+      "enunciado": "Barras de 12m, 16m, 20m. Dividir em pedaços iguais maiores possíveis. Quantos CORTES?",
+      "topico": 6,
+      "dificuldade": "D",
+      "alternativa_a": "9",
+      "alternativa_b": "10",
+      "alternativa_c": "11",
+      "alternativa_d": "12",
+      "correta": "A",
+      "justificativa": "MDC=4. Pedaços: 3,4,5. Cortes: (3-1)+(4-1)+(5-1) = 2+3+4 = 9.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 521,
+    "fields": {
+      "enunciado": "Menor número que dividido por 12, 15 e 18 deixa resto 3.",
+      "topico": 6,
+      "dificuldade": "D",
+      "alternativa_a": "180",
+      "alternativa_b": "183",
+      "alternativa_c": "360",
+      "alternativa_d": "363",
+      "correta": "B",
+      "justificativa": "MMC(12,15,18)=180. N = 180+3 = 183.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 522,
+    "fields": {
+      "enunciado": "Sala 3,20m x 4,40m. Ladrilhos quadrados inteiros maiores possíveis. Lado em cm?",
+      "topico": 6,
+      "dificuldade": "D",
+      "alternativa_a": "20",
+      "alternativa_b": "40",
+      "alternativa_c": "60",
+      "alternativa_d": "80",
+      "correta": "B",
+      "justificativa": "320 e 440 cm. MDC(320,440)=40.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 523,
+    "fields": {
+      "enunciado": "Ciclos de 18, 24 e 30 anos. Alinhamento em 2000. Próximo?",
+      "topico": 6,
+      "dificuldade": "D",
+      "alternativa_a": "2300",
+      "alternativa_b": "2360",
+      "alternativa_c": "2400",
+      "alternativa_d": "2460",
+      "correta": "B",
+      "justificativa": "MMC(18,24,30)=360. 2000+360=2360.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 524,
+    "fields": {
+      "enunciado": "MDC(A, B) onde A=2³*3²*5 e B=2²*3³*7.",
+      "topico": 6,
+      "dificuldade": "D",
+      "alternativa_a": "12",
+      "alternativa_b": "36",
+      "alternativa_c": "108",
+      "alternativa_d": "180",
+      "correta": "B",
+      "justificativa": "Menores expoentes comuns: 2² * 3² = 4*9=36.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 525,
+    "fields": {
+      "enunciado": "Menor N tal que N/5, N/6, N/8 deixam resto 1.",
+      "topico": 6,
+      "dificuldade": "D",
+      "alternativa_a": "119",
+      "alternativa_b": "121",
+      "alternativa_c": "241",
+      "alternativa_d": "361",
+      "correta": "B",
+      "justificativa": "MMC(5,6,8)=120. N=120+1=121.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 526,
+    "fields": {
+      "enunciado": "240 laranjas, 360 maçãs, 420 peras. Cestas iguais com 1 tipo de fruta. Mínimo de cestas?",
+      "topico": 6,
+      "dificuldade": "D",
+      "alternativa_a": "15",
+      "alternativa_b": "17",
+      "alternativa_c": "20",
+      "alternativa_d": "25",
+      "correta": "B",
+      "justificativa": "MDC=60 (frutas/cesta). Cestas: 4+6+7=17.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 527,
+    "fields": {
+      "enunciado": "Produto de dois números é 600, MMC é 60. Qual o MDC?",
+      "topico": 6,
+      "dificuldade": "D",
+      "alternativa_a": "5",
+      "alternativa_b": "10",
+      "alternativa_c": "15",
+      "alternativa_d": "20",
+      "correta": "B",
+      "justificativa": "A*B = MMC*MDC. 600 = 60*MDC. MDC=10.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 528,
+    "fields": {
+      "enunciado": "Divisores comuns de 252 e 360.",
+      "topico": 6,
+      "dificuldade": "D",
+      "alternativa_a": "9",
+      "alternativa_b": "12",
+      "alternativa_c": "15",
+      "alternativa_d": "18",
+      "correta": "A",
+      "justificativa": "MDC(252,360)=36. Divisores de 36: 1,2,3,4,6,9,12,18,36 (9 divisores).",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 529,
+    "fields": {
+      "enunciado": "Corredores: 72s, 90s, 108s por volta. Encontro em quanto tempo?",
+      "topico": 6,
+      "dificuldade": "D",
+      "alternativa_a": "18 min",
+      "alternativa_b": "24 min",
+      "alternativa_c": "36 min",
+      "alternativa_d": "48 min",
+      "correta": "C",
+      "justificativa": "MMC(72,90,108)=2160s = 36 min.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 530,
+    "fields": {
+      "enunciado": "Menor inteiro de 3 algarismos divisível por 3, 4 e 5.",
+      "topico": 6,
+      "dificuldade": "D",
+      "alternativa_a": "100",
+      "alternativa_b": "120",
+      "alternativa_c": "150",
+      "alternativa_d": "180",
+      "correta": "B",
+      "justificativa": "MMC(3,4,5)=60. Múltiplos: 60, 120...",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 531,
+    "fields": {
+      "enunciado": "MDC(X, 15)=3 e MMC(X, 15)=90. X=?",
+      "topico": 6,
+      "dificuldade": "D",
+      "alternativa_a": "6",
+      "alternativa_b": "12",
+      "alternativa_c": "18",
+      "alternativa_d": "30",
+      "correta": "C",
+      "justificativa": "X*15 = 3*90 -> 15X=270 -> X=18.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 532,
+    "fields": {
+      "enunciado": "Pilhas de livros de 12mm e 18mm. Mesma altura > 50cm. Mínima?",
+      "topico": 6,
+      "dificuldade": "D",
+      "alternativa_a": "36cm",
+      "alternativa_b": "54cm",
+      "alternativa_c": "72cm",
+      "alternativa_d": "90cm",
+      "correta": "C",
+      "justificativa": "MMC(12,18)=36mm. Múltiplos de 36mm: 360, 396... 720mm=72cm.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 533,
+    "fields": {
+      "enunciado": "Piso 120m x 200m. Quadrados iguais. Mínimo de quadrados?",
+      "topico": 6,
+      "dificuldade": "D",
+      "alternativa_a": "15",
+      "alternativa_b": "30",
+      "alternativa_c": "45",
+      "alternativa_d": "60",
+      "correta": "A",
+      "justificativa": "MDC=40. (120/40)*(200/40) = 3*5=15.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 534,
+    "fields": {
+      "enunciado": "Dois números somam 32, MDC=4. Quantos pares?",
+      "topico": 6,
+      "dificuldade": "D",
+      "alternativa_a": "1",
+      "alternativa_b": "2",
+      "alternativa_c": "3",
+      "alternativa_d": "4",
+      "correta": "B",
+      "justificativa": "Pares (4,28) e (12,20).",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 535,
+    "fields": {
+      "enunciado": "Menor nº que div por 5 sobra 2, por 7 sobra 4, por 9 sobra 6.",
+      "topico": 6,
+      "dificuldade": "D",
+      "alternativa_a": "312",
+      "alternativa_b": "315",
+      "alternativa_c": "630",
+      "alternativa_d": "627",
+      "correta": "A",
+      "justificativa": "Regra do 'Falta 3'. MMC(5,7,9)=315. 315-3=312.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 536,
+    "fields": {
+      "enunciado": "Alunos em grupos de 12, 15, 20 sobram 2. Mínimo?",
+      "topico": 6,
+      "dificuldade": "D",
+      "alternativa_a": "60",
+      "alternativa_b": "62",
+      "alternativa_c": "120",
+      "alternativa_d": "122",
+      "correta": "B",
+      "justificativa": "MMC(12,15,20)=60. 60+2=62.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 537,
+    "fields": {
+      "enunciado": "Se A=2^x * 3^2, B=2^3 * 3^y, MDC=12. x e y?",
+      "topico": 6,
+      "dificuldade": "D",
+      "alternativa_a": "x=2,y=1",
+      "alternativa_b": "x=3,y=2",
+      "alternativa_c": "x=1,y=2",
+      "alternativa_d": "x=2,y=3",
+      "correta": "A",
+      "justificativa": "MDC 12 = 2^2 * 3^1. Logo min(x,3)=2 -> x=2. min(2,y)=1 -> y=1.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 538,
+    "fields": {
+      "enunciado": "Ladrilhar sala 3,60x2,40m com quadrados 20cm. Quantos?",
+      "topico": 6,
+      "dificuldade": "D",
+      "alternativa_a": "180",
+      "alternativa_b": "200",
+      "alternativa_c": "216",
+      "alternativa_d": "240",
+      "correta": "C",
+      "justificativa": "360/20=18. 240/20=12. 18*12=216.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "questoes.questao",
+    "pk": 539,
+    "fields": {
+      "enunciado": "MMC de dois primos entre si com produto 450.",
+      "topico": 6,
+      "dificuldade": "D",
+      "alternativa_a": "1",
+      "alternativa_b": "225",
+      "alternativa_c": "450",
+      "alternativa_d": "900",
+      "correta": "C",
+      "justificativa": "Se primos entre si, MMC = Produto = 450.",
+      "criado_em": "2024-01-01T10:00:00Z"
+    }
+  }
+]

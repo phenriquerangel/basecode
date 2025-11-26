@@ -65,10 +65,21 @@ Substitua NOME_DO_POD pelo nome copiado acima:
 Bash
 
 # Criar tabelas
-kubectl exec -it backend-6f8f6c7648-6jxl9 -n estudos -- python manage.py migrate
+kubectl exec -it backend-f875d76dd-5hz7k -n estudos -- python manage.py migrate
 
 # Criar admin (Login)
-kubectl exec -it backend-6f8f6c7648-6jxl9 -n estudos -- python manage.py createsuperuser
+kubectl exec -it backend-f875d76dd-5hz7k -n estudos -- python manage.py createsuperuser
+
+
+kubectl exec -it backend-f875d76dd-5hz7k -n estudos -- python manage.py migrate --fake questoes zero
+
+kubectl exec -it backend-f875d76dd-5hz7k -n estudos -- python manage.py migrate
+kubectl exec -it backend-f875d76dd-5hz7k -n estudos -- python manage.py makemigrations questoes
+kubectl exec -it backend-f875d76dd-5hz7k -n estudos -- python manage.py makemigrations questoes
+kubectl cp questoes_mmc_mdc.json backend-f875d76dd-5hz7k:/app/questoes_mmc_mdc.json -n estudos
+kubectl exec -it backend-f875d76dd-5hz7k -n estudos -- python manage.py loaddata questoes_mmc_mdc.json
+kubectl cp mmc_mdc_fix.json backend-66bc5c5f5c-d666n:/app/mmc_mdc_fix.json -n estudos
+kubectl exec -it backend-66bc5c5f5c-d666n -n estudos -- python manage.py loaddata mmc_mdc_fix.json
 💾 4. Backup e Restauração (Gerenciamento de Dados)
 Use o script auxiliar gerenciar_dados.py para não perder suas questões cadastradas.
 
@@ -105,3 +116,4 @@ cd basecode/frontend
 docker build -t phenriquernagel/banco-questoes-frontend:v23 .
 # Push
 docker push phenriquernagel/banco-questoes-frontend:v23
+

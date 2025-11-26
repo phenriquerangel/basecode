@@ -12,21 +12,14 @@ class QuestaoViewSet(viewsets.ModelViewSet):
     
     def get_queryset(self):
         qs = Questao.objects.all().order_by('-id')
-        
-        # Captura os parâmetros da URL
         topico_id = self.request.query_params.get('topico')
-        dificuldade = self.request.query_params.get('dificuldade') # <--- O QUE FALTAVA
+        dificuldade = self.request.query_params.get('dificuldade')
         search = self.request.query_params.get('search')
         
-        # Aplica os filtros se eles existirem
         if topico_id:
             qs = qs.filter(topico_id=topico_id)
-            
         if dificuldade:
-            qs = qs.filter(dificuldade=dificuldade) # <--- A LÓGICA NOVA
-            
+            qs = qs.filter(dificuldade=dificuldade)
         if search:
-            # Busca no enunciado OU na justificativa
             qs = qs.filter(enunciado__icontains=search) | qs.filter(justificativa__icontains=search)
-            
         return qs

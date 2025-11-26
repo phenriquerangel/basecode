@@ -8,7 +8,7 @@ def create_file(path, content):
 
 root = "basecode"
 
-print("🏗️ INICIANDO RECONSTRUÇÃO TOTAL (Versão Final Estável)...")
+print("🏗️ INICIANDO RECONSTRUÇÃO TOTAL (Versão Final v25/v24)...")
 
 # ================= KUBERNETES =================
 k8s_ns = "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: estudos"
@@ -84,7 +84,7 @@ spec:
   type: ClusterIP
 """
 
-# Apontando para v22 (Admin Ativado + Jazzmin)
+# Apontando para v25 (Correção dos Filtros + Admin Ativado)
 k8s_back = """apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -102,7 +102,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: phenriquernagel/banco-questoes-backend:v22
+        image: phenriquernagel/banco-questoes-backend:v25
         imagePullPolicy: Always
         ports: [{containerPort: 8000}]
         envFrom:
@@ -124,7 +124,7 @@ spec:
   type: ClusterIP
 """
 
-# Apontando para v23 (Painel Professor + PDF Cliente)
+# Apontando para v24 (Layout Professor + Filtros UI + PDF Cliente)
 k8s_front = """apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -142,7 +142,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: phenriquernagel/banco-questoes-frontend:v23
+        image: phenriquernagel/banco-questoes-frontend:v24
         imagePullPolicy: Always
         ports: [{containerPort: 80}]
 ---
@@ -161,7 +161,7 @@ spec:
   type: NodePort
 """
 
-# ================= BACKEND (Django) =================
+# ================= BACKEND (Django v25) =================
 be_req = """Django>=5.0,<6.0
 djangorestframework>=3.14
 psycopg2-binary>=2.9
@@ -169,6 +169,7 @@ django-cors-headers>=4.3
 gunicorn>=21.2
 django-jazzmin>=2.6.0
 whitenoise>=6.6.0
+django-filter>=23.0
 """
 
 be_docker = """FROM python:3.11-slim
@@ -190,7 +191,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'key')
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 ALLOWED_HOSTS = ['*']
-INSTALLED_APPS = ['jazzmin','django.contrib.admin','django.contrib.auth','django.contrib.contenttypes','django.contrib.sessions','django.contrib.messages','django.contrib.staticfiles','rest_framework','corsheaders','questoes']
+INSTALLED_APPS = ['jazzmin','django.contrib.admin','django.contrib.auth','django.contrib.contenttypes','django.contrib.sessions','django.contrib.messages','django.contrib.staticfiles','rest_framework','corsheaders','django_filters','questoes']
 MIDDLEWARE = ['django.middleware.security.SecurityMiddleware','whitenoise.middleware.WhiteNoiseMiddleware','corsheaders.middleware.CorsMiddleware','django.contrib.sessions.middleware.SessionMiddleware','django.middleware.common.CommonMiddleware','django.middleware.csrf.CsrfViewMiddleware','django.contrib.auth.middleware.AuthenticationMiddleware','django.contrib.messages.middleware.MessageMiddleware','django.middleware.clickjacking.XFrameOptionsMiddleware']
 ROOT_URLCONF = 'core.urls'
 TEMPLATES = [{'BACKEND': 'django.template.backends.django.DjangoTemplates','DIRS': [],'APP_DIRS': True,'OPTIONS': {'context_processors': ['django.template.context_processors.debug','django.template.context_processors.request','django.contrib.auth.context_processors.auth','django.contrib.messages.context_processors.messages',],},},]
@@ -251,21 +252,31 @@ class QuestaoAdmin(admin.ModelAdmin):
     def enunciado_curto(self, obj): return obj.enunciado[:50]
 """
 
+# VIEWS COM CORREÇÃO DE FILTROS (v25)
 q_views = """from rest_framework import viewsets
 from .models import Topico, Questao
 from .serializers import TopicoSerializer, QuestaoSerializer
+
 class TopicoViewSet(viewsets.ModelViewSet):
     queryset = Topico.objects.all()
     serializer_class = TopicoSerializer
+
 class QuestaoViewSet(viewsets.ModelViewSet):
     queryset = Questao.objects.all().order_by('-id')
     serializer_class = QuestaoSerializer
+    
     def get_queryset(self):
         qs = Questao.objects.all().order_by('-id')
         topico_id = self.request.query_params.get('topico')
+        dificuldade = self.request.query_params.get('dificuldade')
         search = self.request.query_params.get('search')
-        if topico_id: qs = qs.filter(topico_id=topico_id)
-        if search: qs = qs.filter(enunciado__icontains=search)
+        
+        if topico_id:
+            qs = qs.filter(topico_id=topico_id)
+        if dificuldade:
+            qs = qs.filter(dificuldade=dificuldade)
+        if search:
+            qs = qs.filter(enunciado__icontains=search) | qs.filter(justificativa__icontains=search)
         return qs
 """
 
@@ -289,7 +300,7 @@ urlpatterns = [path('', include(router.urls))]
 
 q_apps = "from django.apps import AppConfig\nclass QuestoesConfig(AppConfig):\n    default_auto_field = 'django.db.models.BigAutoField'\n    name = 'questoes'"
 
-# ================= FRONTEND (React) =================
+# ================= FRONTEND (React v24) =================
 fe_pkg = """{
   "name": "front", "private": true, "version": "2.0.0", "type": "module",
   "scripts": { "dev": "vite", "build": "vite build" },
@@ -303,32 +314,47 @@ fe_nginx = """server {
     location /api/ { proxy_pass http://backend-service.estudos.svc.cluster.local:8000; proxy_set_header Host $host; }
 }"""
 
+# APP.JSX COM FILTROS E PDF CLIENTE
 fe_app = """import React, { useState, useEffect } from 'react';
 import { jsPDF } from "jspdf";
+
 function App() {
   const [questoes, setQuestoes] = useState([]);
+  const [topicos, setTopicos] = useState([]);
   const [selectedIds, setSelectedIds] = useState([]);
   const [loading, setLoading] = useState(true);
   const [busca, setBusca] = useState("");
+  const [filtroTopico, setFiltroTopico] = useState("");
+  const [filtroDificuldade, setFiltroDificuldade] = useState("");
+
   const API_URL = "/api/questoes/";
+  const TOPICOS_URL = "/api/topicos/";
+
+  useEffect(() => {
+    fetch(TOPICOS_URL).then(r=>r.json()).then(setTopicos).catch(console.error);
+  }, []);
 
   useEffect(() => {
     setLoading(true);
-    let url = API_URL + (busca ? `?search=${busca}` : "");
+    let url = `${API_URL}?search=${busca}`;
+    if(filtroTopico) url += `&topico=${filtroTopico}`;
+    if(filtroDificuldade) url += `&dificuldade=${filtroDificuldade}`;
+    
     const delay = setTimeout(() => {
-        fetch(url).then(r=>r.json()).then(d=>{setQuestoes(d);setLoading(false);}).catch(e=>{console.error(e);setLoading(false);});
+        fetch(url).then(r=>r.json()).then(d=>{setQuestoes(d);setLoading(false);}).catch(console.error);
     }, 300);
     return () => clearTimeout(delay);
-  }, [busca]);
+  }, [busca, filtroTopico, filtroDificuldade]);
 
   const toggleSelect = (id) => selectedIds.includes(id) ? setSelectedIds(selectedIds.filter(i=>i!==id)) : setSelectedIds([...selectedIds, id]);
+  const limparFiltros = () => { setBusca(""); setFiltroTopico(""); setFiltroDificuldade(""); };
 
   const gerarPDF = () => {
     const doc = new jsPDF();
     const selecionadas = questoes.filter(q => selectedIds.includes(q.id));
     let y = 20;
-    doc.setFontSize(18); doc.setFont("helvetica", "bold"); doc.text("Avaliação MathMaster", 105, y, {align:"center"}); y+=20;
-    doc.setFontSize(12); doc.setFont("helvetica", "normal");
+    doc.setFontSize(22); doc.setFont("helvetica", "bold"); doc.text("Avaliação MathMaster", 105, y, {align:"center"}); y+=15;
+    doc.setFontSize(12); doc.setFont("helvetica", "normal"); doc.text(`Gerado com ${selecionadas.length} questões.`, 105, y, {align:"center"}); y+=20;
     selecionadas.forEach((q, i) => {
         if(y>270){doc.addPage();y=20;}
         doc.setFont("helvetica","bold");
@@ -338,61 +364,67 @@ function App() {
         ['a','b','c','d'].forEach(o=>{
              if(y>280){doc.addPage();y=20;}
              doc.text(`${o.toUpperCase()}) ${q['alternativa_'+o]}`, 20, y); y+=6;
-        });
-        y+=8;
+        }); y+=8;
     });
     doc.addPage(); y=20; doc.setFontSize(16); doc.text("Gabarito", 105, y, {align:"center"}); y+=20; doc.setFontSize(12);
     selecionadas.forEach((q, i)=>{doc.text(`${i+1}) ${q.correta}`, 20, y); y+=8;});
-    doc.save("Prova_Matematica.pdf");
+    doc.save("Prova_MathMaster.pdf");
   };
 
   const s = {
     page: { fontFamily: 'Inter, sans-serif', backgroundColor: '#f8fafc', minHeight: '100vh', paddingBottom: '120px' },
     nav: { backgroundColor: 'white', padding: '15px 30px', borderBottom: '1px solid #e2e8f0', position:'sticky', top:0, zIndex:10 },
-    searchBar: { maxWidth: '800px', margin: '30px auto', padding: '0 20px' },
-    input: { width: '100%', padding: '16px', borderRadius: '12px', border: '1px solid #cbd5e1', fontSize: '1rem' },
-    grid: { display: 'grid', gap: '20px', maxWidth: '800px', margin: '0 auto', padding: '0 20px' },
-    card: (isSelected) => ({
-        backgroundColor: isSelected ? '#eff6ff' : 'white',
-        border: isSelected ? '2px solid #3b82f6' : '1px solid #e2e8f0',
-        borderRadius: '16px', padding: '24px', cursor: 'pointer', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', position:'relative'
-    }),
-    badge: { backgroundColor: '#f1f5f9', color: '#475569', padding: '4px 10px', borderRadius: '20px', fontSize: '0.75rem', fontWeight: 'bold' },
-    actionBar: {
-        position: 'fixed', bottom: '30px', left: '50%', transform: 'translateX(-50%)',
-        backgroundColor: '#1e293b', color: 'white', padding: '12px 24px', borderRadius: '50px',
-        display: 'flex', alignItems: 'center', gap: '20px', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.3)', zIndex:50
-    },
-    btn: { backgroundColor: '#3b82f6', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '30px', fontWeight: 'bold', cursor: 'pointer' }
+    filterBox: { maxWidth: '900px', margin: '30px auto', padding: '20px', backgroundColor: 'white', borderRadius: '16px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)', display: 'flex', gap: '15px', flexWrap: 'wrap' },
+    input: { flex: 2, padding: '12px', borderRadius: '8px', border: '1px solid #cbd5e1' },
+    select: { flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid #cbd5e1', minWidth: '150px' },
+    grid: { display: 'grid', gap: '20px', maxWidth: '900px', margin: '0 auto', padding: '0 20px' },
+    card: (sel) => ({ backgroundColor: sel ? '#eff6ff' : 'white', border: sel ? '2px solid #3b82f6' : '1px solid #e2e8f0', borderRadius: '12px', padding: '24px', cursor: 'pointer', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', position:'relative' }),
+    badge: (bg, col) => ({ backgroundColor: bg, color: col, padding: '4px 10px', borderRadius: '20px', fontSize: '0.75rem', fontWeight: 'bold' }),
+    actionBar: { position: 'fixed', bottom: '30px', left: '50%', transform: 'translateX(-50%)', backgroundColor: '#1e293b', color: 'white', padding: '12px 24px', borderRadius: '50px', display: 'flex', gap: '20px', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.3)', zIndex: 50 },
+    btn: { backgroundColor: '#3b82f6', color: 'white', border: 'none', padding: '10px 25px', borderRadius: '30px', fontWeight: 'bold', cursor: 'pointer' }
   };
 
   return (
     <div style={s.page}>
       <nav style={s.nav}><h1 style={{fontSize:'1.2rem', margin:0}}>🎓 MathMaster</h1></nav>
-      <div style={s.searchBar}><input placeholder="🔎 Pesquisar..." value={busca} onChange={e=>setBusca(e.target.value)} style={s.input}/></div>
+      <div style={s.filterBox}>
+        <input placeholder="🔎 Pesquisar..." value={busca} onChange={e=>setBusca(e.target.value)} style={s.input}/>
+        <select value={filtroTopico} onChange={e=>setFiltroTopico(e.target.value)} style={s.select}>
+            <option value="">Todos Tópicos</option>{topicos.map(t=><option key={t.id} value={t.id}>{t.nome}</option>)}
+        </select>
+        <select value={filtroDificuldade} onChange={e=>setFiltroDificuldade(e.target.value)} style={s.select}>
+            <option value="">Dificuldade</option><option value="F">Fácil</option><option value="M">Médio</option><option value="D">Difícil</option>
+        </select>
+        {(busca||filtroTopico||filtroDificuldade) && <button onClick={limparFiltros} style={{padding:'10px', border:'1px solid red', color:'red', background:'white', borderRadius:'8px', cursor:'pointer'}}>Limpar</button>}
+      </div>
       <main style={s.grid}>
-        {!loading && questoes.map(q => {
-           const isSel = selectedIds.includes(q.id);
-           return (
-             <div key={q.id} style={s.card(isSel)} onClick={() => toggleSelect(q.id)}>
-               <div style={{display:'flex',gap:'10px',marginBottom:'15px'}}>
-                   <span style={s.badge}>{q.topico_nome || 'Geral'}</span>
-                   <span style={{...s.badge, color: q.dificuldade==='F'?'green':q.dificuldade==='M'?'orange':'red'}}>{q.dificuldade}</span>
-               </div>
-               {isSel && <div style={{position:'absolute',top:'20px',right:'20px',fontSize:'1.5rem'}}>✅</div>}
-               <h3 style={{marginTop:0}}>{q.enunciado}</h3>
-               <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'5px',fontSize:'0.9rem',color:'#666'}}>
-                   <div>A) {q.alternativa_a}</div><div>B) {q.alternativa_b}</div><div>C) {q.alternativa_c}</div><div>D) {q.alternativa_d}</div>
-               </div>
-             </div>
-           )
-        })}
+        {!loading && questionsList(questoes, selectedIds, toggleSelect, s)}
       </main>
       {selectedIds.length > 0 && (
           <div style={s.actionBar}><span><strong>{selectedIds.length}</strong> selecionadas</span><button style={s.btn} onClick={gerarPDF}>📥 Baixar PDF</button></div>
       )}
     </div>
   );
+}
+
+function questionsList(questoes, selectedIds, toggleSelect, s) {
+    return questoes.map(q => {
+        const isSel = selectedIds.includes(q.id);
+        const difColor = q.dificuldade==='F'?'#16a34a':q.dificuldade==='M'?'#d97706':'#dc2626';
+        return (
+            <div key={q.id} style={s.card(isSel)} onClick={() => toggleSelect(q.id)}>
+                <div style={{display:'flex', gap:'10px', marginBottom:'15px'}}>
+                    <span style={s.badge('#eff6ff', '#2563eb')}>{q.topico_nome}</span>
+                    <span style={{...s.badge('#f1f5f9', difColor)}}>{q.dificuldade}</span>
+                    {isSel && <span style={{marginLeft:'auto'}}>✅</span>}
+                </div>
+                <h3 style={{marginTop:0}}>{q.enunciado}</h3>
+                <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'5px', fontSize:'0.9rem', color:'#64748b'}}>
+                    <div>A) {q.alternativa_a}</div><div>B) {q.alternativa_b}</div><div>C) {q.alternativa_c}</div><div>D) {q.alternativa_d}</div>
+                </div>
+            </div>
+        );
+    });
 }
 export default App;"""
 
@@ -412,6 +444,7 @@ files = {
     f"{root}/backend/core/urls.py": be_urls,
     f"{root}/backend/core/wsgi.py": "import os; from django.core.wsgi import get_wsgi_application; os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings'); application = get_wsgi_application()",
     f"{root}/backend/manage.py": "import os; import sys; os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings'); from django.core.management import execute_from_command_line; execute_from_command_line(sys.argv)",
+    f"{root}/backend/questoes/__init__.py": "",
     f"{root}/backend/questoes/models.py": q_models,
     f"{root}/backend/questoes/admin.py": q_admin,
     f"{root}/backend/questoes/views.py": q_views,
@@ -429,4 +462,8 @@ files = {
 
 for p, c in files.items(): create_file(p, c)
 
-print("\n✨ CÓDIGO FONTE FINAL RECRIADO COM SUCESSO!")
+print("\n✨ CÓDIGO FONTE ATUALIZADO (v25/v24)!")
+print("Assegure-se de que as imagens phenriquernagel/banco-questoes-backend:v25 e frontend:v24 existem no Docker Hub.")
+print("Se não existirem, execute:")
+print("  1. cd basecode/backend && docker build -t phenriquernagel/banco-questoes-backend:v25 . && docker push ...")
+print("  2. cd ../frontend && docker build -t phenriquernagel/banco-questoes-frontend:v24 . && docker push ...")

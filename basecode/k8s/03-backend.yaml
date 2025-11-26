@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: phenriquernagel/banco-questoes-backend:v22
+        image: phenriquernagel/banco-questoes-backend:v25
         imagePullPolicy: Always
         ports: [{containerPort: 8000}]
         envFrom:

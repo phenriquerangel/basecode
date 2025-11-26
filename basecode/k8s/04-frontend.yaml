@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: phenriquernagel/banco-questoes-frontend:v23
+        image: phenriquernagel/banco-questoes-frontend:v24
         imagePullPolicy: Always
         ports: [{containerPort: 80}]
 ---

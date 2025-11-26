@@ -1,3 +1,15 @@
+import os
+
+def create_file(path, content):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write(content.strip())
+    print(f"✅ Backend Corrigido: {path}")
+
+root = "basecode/backend/questoes"
+
+# VIEWS.PY (Agora com suporte a Dificuldade)
+views_content = """
 from rest_framework import viewsets
 from .models import Topico, Questao
 from .serializers import TopicoSerializer, QuestaoSerializer
@@ -30,3 +42,13 @@ class QuestaoViewSet(viewsets.ModelViewSet):
             qs = qs.filter(enunciado__icontains=search) | qs.filter(justificativa__icontains=search)
             
         return qs
+"""
+
+files = {
+    f"{root}/views.py": views_content,
+}
+
+print("🔧 Adicionando lógica de filtro de Dificuldade ao Backend...")
+for path, content in files.items():
+    create_file(path, content)
+print("✨ Código corrigido! Necessário Build do Backend v25.")

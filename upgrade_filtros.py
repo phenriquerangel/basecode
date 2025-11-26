@@ -1,3 +1,15 @@
+import os
+
+def create_file(path, content):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write(content.strip())
+    print(f"✅ Frontend Atualizado: {path}")
+
+root_front = "basecode/frontend/src"
+
+# APP.JSX (Com Filtros Avançados e UI Polida)
+app_jsx = """
 import React, { useState, useEffect } from 'react';
 import { jsPDF } from "jspdf";
 
@@ -208,3 +220,13 @@ function questionsList(questoes, selectedIds, toggleSelect, s) {
 }
 
 export default App;
+"""
+
+files = {
+    f"{root_front}/App.jsx": app_jsx,
+}
+
+print("🎨 Atualizando Filtros do Frontend (v24)...")
+for path, content in files.items():
+    create_file(path, content)
+print("✨ Feito! Execute o build v24.")

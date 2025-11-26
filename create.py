@@ -284,7 +284,7 @@ dist
 
 # --- EXECUÇÃO DO SCRIPT ---
 
-root = "codebase"
+root = "basecode"
 
 # Mapeamento de Caminho -> Conteúdo
 files = {

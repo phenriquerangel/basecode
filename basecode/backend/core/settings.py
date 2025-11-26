@@ -4,9 +4,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-dev-key')
-
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
-
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
@@ -16,8 +14,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Libs de terceiros
     'rest_framework',
     'corsheaders',
+    # NOSSAS APPS
+    'questoes',  # <--- ESSENCIAL PARA A MIGRAÇÃO FUNCIONAR
 ]
 
 MIDDLEWARE = [
@@ -73,7 +74,6 @@ LANGUAGE_CODE = 'pt-br'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
-
 STATIC_URL = 'static/'
 
 CORS_ALLOWED_ORIGINS = [

@@ -65,10 +65,10 @@ Substitua NOME_DO_POD pelo nome copiado acima:
 Bash
 
 # Criar tabelas
-kubectl exec -it NOME_DO_POD -n estudos -- python manage.py migrate
+kubectl exec -it backend-6f8f6c7648-6jxl9 -n estudos -- python manage.py migrate
 
 # Criar admin (Login)
-kubectl exec -it NOME_DO_POD -n estudos -- python manage.py createsuperuser
+kubectl exec -it backend-6f8f6c7648-6jxl9 -n estudos -- python manage.py createsuperuser
 💾 4. Backup e Restauração (Gerenciamento de Dados)
 Use o script auxiliar gerenciar_dados.py para não perder suas questões cadastradas.
 
@@ -90,7 +90,7 @@ python gerenciar_dados.py restore
 Caso precise alterar o código e gerar novas versões das imagens Docker.
 
 Backend
-Bash
+Bashto ouv
 
 cd basecode/backend
 # Build (use --no-cache se adicionar bibliotecas novas)

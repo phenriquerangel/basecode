@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
       "nome": "Matemática Básica",
-      "descricao": "Questões sobre Matemática Básica"
+      "descricao": "Exercícios e problemas sobre Matemática Básica"
     }
   },
   {
@@ -12,15 +12,15 @@
     "pk": 2,
     "fields": {
       "nome": "Álgebra",
-      "descricao": "Questões sobre Álgebra"
+      "descricao": "Exercícios e problemas sobre Álgebra"
     }
   },
   {
     "model": "questoes.topico",
     "pk": 3,
     "fields": {
-      "nome": "Geometria",
-      "descricao": "Questões sobre Geometria"
+      "nome": "Geometria Plana",
+      "descricao": "Exercícios e problemas sobre Geometria Plana"
     }
   },
   {
@@ -28,7 +28,7 @@
     "pk": 4,
     "fields": {
       "nome": "Trigonometria",
-      "descricao": "Questões sobre Trigonometria"
+      "descricao": "Exercícios e problemas sobre Trigonometria"
     }
   },
   {
@@ -36,22 +36,22 @@
     "pk": 5,
     "fields": {
       "nome": "Estatística",
-      "descricao": "Questões sobre Estatística"
+      "descricao": "Exercícios e problemas sobre Estatística"
     }
   },
   {
     "model": "questoes.questao",
     "pk": 1,
     "fields": {
-      "enunciado": "Questão 1 de Matemática Básica: Qual o resultado de X + 1?",
+      "enunciado": "Questão 1 sobre Matemática Básica: Calcule o valor de X na expressão dada.",
       "topico": 1,
-      "dificuldade": "M",
+      "dificuldade": "F",
       "alternativa_a": "10",
-      "alternativa_b": "20",
-      "alternativa_c": "30",
-      "alternativa_d": "40",
-      "correta": "C",
-      "justificativa": "Esta é uma questão gerada automaticamente para testes.",
+      "alternativa_b": "15",
+      "alternativa_c": "20",
+      "alternativa_d": "25",
+      "correta": "B",
+      "justificativa": "Resolução passo a passo da questão de Matemática Básica.",
       "criado_em": "2024-01-01T12:00:00Z"
     }
   },
@@ -59,15 +59,15 @@
     "model": "questoes.questao",
     "pk": 2,
     "fields": {
-      "enunciado": "Questão 2 de Matemática Básica: Qual o resultado de X + 2?",
+      "enunciado": "Questão 2 sobre Matemática Básica: Calcule o valor de X na expressão dada.",
       "topico": 1,
       "dificuldade": "M",
       "alternativa_a": "10",
-      "alternativa_b": "20",
-      "alternativa_c": "30",
-      "alternativa_d": "40",
-      "correta": "C",
-      "justificativa": "Esta é uma questão gerada automaticamente para testes.",
+      "alternativa_b": "15",
+      "alternativa_c": "20",
+      "alternativa_d": "25",
+      "correta": "B",
+      "justificativa": "Resolução passo a passo da questão de Matemática Básica.",
       "criado_em": "2024-01-01T12:00:00Z"
     }
   },
@@ -75,15 +75,15 @@
     "model": "questoes.questao",
     "pk": 3,
     "fields": {
-      "enunciado": "Questão 3 de Matemática Básica: Qual o resultado de X + 3?",
+      "enunciado": "Questão 3 sobre Matemática Básica: Calcule o valor de X na expressão dada.",
       "topico": 1,
-      "dificuldade": "M",
+      "dificuldade": "D",
       "alternativa_a": "10",
-      "alternativa_b": "20",
-      "alternativa_c": "30",
-      "alternativa_d": "40",
-      "correta": "C",
-      "justificativa": "Esta é uma questão gerada automaticamente para testes.",
+      "alternativa_b": "15",
+      "alternativa_c": "20",
+      "alternativa_d": "25",
+      "correta": "B",
+      "justificativa": "Resolução passo a passo da questão de Matemática Básica.",
       "criado_em": "2024-01-01T12:00:00Z"
     }
   },
@@ -91,15 +91,15 @@
     "model": "questoes.questao",
     "pk": 4,
     "fields": {
-      "enunciado": "Questão 1 de Álgebra: Qual o resultado de X + 1?",
+      "enunciado": "Questão 1: Resolva a equação 2x + 5 = 0.",
       "topico": 2,
-      "dificuldade": "M",
+      "dificuldade": "F",
       "alternativa_a": "10",
-      "alternativa_b": "20",
-      "alternativa_c": "30",
-      "alternativa_d": "40",
-      "correta": "C",
-      "justificativa": "Esta é uma questão gerada automaticamente para testes.",
+      "alternativa_b": "15",
+      "alternativa_c": "20",
+      "alternativa_d": "25",
+      "correta": "B",
+      "justificativa": "Resolução passo a passo da questão de Álgebra.",
       "criado_em": "2024-01-01T12:00:00Z"
     }
   },
@@ -107,15 +107,15 @@
     "model": "questoes.questao",
     "pk": 5,
     "fields": {
-      "enunciado": "Questão 2 de Álgebra: Qual o resultado de X + 2?",
+      "enunciado": "Questão 2: Resolva a equação 2x + 10 = 0.",
       "topico": 2,
       "dificuldade": "M",
       "alternativa_a": "10",
-      "alternativa_b": "20",
-      "alternativa_c": "30",
-      "alternativa_d": "40",
-      "correta": "C",
-      "justificativa": "Esta é uma questão gerada automaticamente para testes.",
+      "alternativa_b": "15",
+      "alternativa_c": "20",
+      "alternativa_d": "25",
+      "correta": "B",
+      "justificativa": "Resolução passo a passo da questão de Álgebra.",
       "criado_em": "2024-01-01T12:00:00Z"
     }
   },
@@ -123,15 +123,15 @@
     "model": "questoes.questao",
     "pk": 6,
     "fields": {
-      "enunciado": "Questão 3 de Álgebra: Qual o resultado de X + 3?",
+      "enunciado": "Questão 3: Resolva a equação 2x + 15 = 0.",
       "topico": 2,
-      "dificuldade": "M",
+      "dificuldade": "D",
       "alternativa_a": "10",
-      "alternativa_b": "20",
-      "alternativa_c": "30",
-      "alternativa_d": "40",
-      "correta": "C",
-      "justificativa": "Esta é uma questão gerada automaticamente para testes.",
+      "alternativa_b": "15",
+      "alternativa_c": "20",
+      "alternativa_d": "25",
+      "correta": "B",
+      "justificativa": "Resolução passo a passo da questão de Álgebra.",
       "criado_em": "2024-01-01T12:00:00Z"
     }
   },
@@ -139,15 +139,15 @@
     "model": "questoes.questao",
     "pk": 7,
     "fields": {
-      "enunciado": "Questão 1 de Geometria: Qual o resultado de X + 1?",
+      "enunciado": "Questão 1: Qual a área de um triângulo com base 2 e altura 3?",
       "topico": 3,
-      "dificuldade": "M",
+      "dificuldade": "F",
       "alternativa_a": "10",
-      "alternativa_b": "20",
-      "alternativa_c": "30",
-      "alternativa_d": "40",
-      "correta": "C",
-      "justificativa": "Esta é uma questão gerada automaticamente para testes.",
+      "alternativa_b": "15",
+      "alternativa_c": "20",
+      "alternativa_d": "25",
+      "correta": "B",
+      "justificativa": "Resolução passo a passo da questão de Geometria Plana.",
       "criado_em": "2024-01-01T12:00:00Z"
     }
   },
@@ -155,15 +155,15 @@
     "model": "questoes.questao",
     "pk": 8,
     "fields": {
-      "enunciado": "Questão 2 de Geometria: Qual o resultado de X + 2?",
+      "enunciado": "Questão 2: Qual a área de um triângulo com base 4 e altura 6?",
       "topico": 3,
       "dificuldade": "M",
       "alternativa_a": "10",
-      "alternativa_b": "20",
-      "alternativa_c": "30",
-      "alternativa_d": "40",
-      "correta": "C",
-      "justificativa": "Esta é uma questão gerada automaticamente para testes.",
+      "alternativa_b": "15",
+      "alternativa_c": "20",
+      "alternativa_d": "25",
+      "correta": "B",
+      "justificativa": "Resolução passo a passo da questão de Geometria Plana.",
       "criado_em": "2024-01-01T12:00:00Z"
     }
   },
@@ -171,15 +171,15 @@
     "model": "questoes.questao",
     "pk": 9,
     "fields": {
-      "enunciado": "Questão 3 de Geometria: Qual o resultado de X + 3?",
+      "enunciado": "Questão 3: Qual a área de um triângulo com base 6 e altura 9?",
       "topico": 3,
-      "dificuldade": "M",
+      "dificuldade": "D",
       "alternativa_a": "10",
-      "alternativa_b": "20",
-      "alternativa_c": "30",
-      "alternativa_d": "40",
-      "correta": "C",
-      "justificativa": "Esta é uma questão gerada automaticamente para testes.",
+      "alternativa_b": "15",
+      "alternativa_c": "20",
+      "alternativa_d": "25",
+      "correta": "B",
+      "justificativa": "Resolução passo a passo da questão de Geometria Plana.",
       "criado_em": "2024-01-01T12:00:00Z"
     }
   },
@@ -187,15 +187,15 @@
     "model": "questoes.questao",
     "pk": 10,
     "fields": {
-      "enunciado": "Questão 1 de Trigonometria: Qual o resultado de X + 1?",
+      "enunciado": "Questão 1 sobre Trigonometria: Calcule o valor de X na expressão dada.",
       "topico": 4,
-      "dificuldade": "M",
+      "dificuldade": "F",
       "alternativa_a": "10",
-      "alternativa_b": "20",
-      "alternativa_c": "30",
-      "alternativa_d": "40",
-      "correta": "C",
-      "justificativa": "Esta é uma questão gerada automaticamente para testes.",
+      "alternativa_b": "15",
+      "alternativa_c": "20",
+      "alternativa_d": "25",
+      "correta": "B",
+      "justificativa": "Resolução passo a passo da questão de Trigonometria.",
       "criado_em": "2024-01-01T12:00:00Z"
     }
   },
@@ -203,15 +203,15 @@
     "model": "questoes.questao",
     "pk": 11,
     "fields": {
-      "enunciado": "Questão 2 de Trigonometria: Qual o resultado de X + 2?",
+      "enunciado": "Questão 2 sobre Trigonometria: Calcule o valor de X na expressão dada.",
       "topico": 4,
       "dificuldade": "M",
       "alternativa_a": "10",
-      "alternativa_b": "20",
-      "alternativa_c": "30",
-      "alternativa_d": "40",
-      "correta": "C",
-      "justificativa": "Esta é uma questão gerada automaticamente para testes.",
+      "alternativa_b": "15",
+      "alternativa_c": "20",
+      "alternativa_d": "25",
+      "correta": "B",
+      "justificativa": "Resolução passo a passo da questão de Trigonometria.",
       "criado_em": "2024-01-01T12:00:00Z"
     }
   },
@@ -219,15 +219,15 @@
     "model": "questoes.questao",
     "pk": 12,
     "fields": {
-      "enunciado": "Questão 3 de Trigonometria: Qual o resultado de X + 3?",
+      "enunciado": "Questão 3 sobre Trigonometria: Calcule o valor de X na expressão dada.",
       "topico": 4,
-      "dificuldade": "M",
+      "dificuldade": "D",
       "alternativa_a": "10",
-      "alternativa_b": "20",
-      "alternativa_c": "30",
-      "alternativa_d": "40",
-      "correta": "C",
-      "justificativa": "Esta é uma questão gerada automaticamente para testes.",
+      "alternativa_b": "15",
+      "alternativa_c": "20",
+      "alternativa_d": "25",
+      "correta": "B",
+      "justificativa": "Resolução passo a passo da questão de Trigonometria.",
       "criado_em": "2024-01-01T12:00:00Z"
     }
   },
@@ -235,15 +235,15 @@
     "model": "questoes.questao",
     "pk": 13,
     "fields": {
-      "enunciado": "Questão 1 de Estatística: Qual o resultado de X + 1?",
+      "enunciado": "Questão 1 sobre Estatística: Calcule o valor de X na expressão dada.",
       "topico": 5,
-      "dificuldade": "M",
+      "dificuldade": "F",
       "alternativa_a": "10",
-      "alternativa_b": "20",
-      "alternativa_c": "30",
-      "alternativa_d": "40",
-      "correta": "C",
-      "justificativa": "Esta é uma questão gerada automaticamente para testes.",
+      "alternativa_b": "15",
+      "alternativa_c": "20",
+      "alternativa_d": "25",
+      "correta": "B",
+      "justificativa": "Resolução passo a passo da questão de Estatística.",
       "criado_em": "2024-01-01T12:00:00Z"
     }
   },
@@ -251,15 +251,15 @@
     "model": "questoes.questao",
     "pk": 14,
     "fields": {
-      "enunciado": "Questão 2 de Estatística: Qual o resultado de X + 2?",
+      "enunciado": "Questão 2 sobre Estatística: Calcule o valor de X na expressão dada.",
       "topico": 5,
       "dificuldade": "M",
       "alternativa_a": "10",
-      "alternativa_b": "20",
-      "alternativa_c": "30",
-      "alternativa_d": "40",
-      "correta": "C",
-      "justificativa": "Esta é uma questão gerada automaticamente para testes.",
+      "alternativa_b": "15",
+      "alternativa_c": "20",
+      "alternativa_d": "25",
+      "correta": "B",
+      "justificativa": "Resolução passo a passo da questão de Estatística.",
       "criado_em": "2024-01-01T12:00:00Z"
     }
   },
@@ -267,15 +267,15 @@
     "model": "questoes.questao",
     "pk": 15,
     "fields": {
-      "enunciado": "Questão 3 de Estatística: Qual o resultado de X + 3?",
+      "enunciado": "Questão 3 sobre Estatística: Calcule o valor de X na expressão dada.",
       "topico": 5,
-      "dificuldade": "M",
+      "dificuldade": "D",
       "alternativa_a": "10",
-      "alternativa_b": "20",
-      "alternativa_c": "30",
-      "alternativa_d": "40",
-      "correta": "C",
-      "justificativa": "Esta é uma questão gerada automaticamente para testes.",
+      "alternativa_b": "15",
+      "alternativa_c": "20",
+      "alternativa_d": "25",
+      "correta": "B",
+      "justificativa": "Resolução passo a passo da questão de Estatística.",
       "criado_em": "2024-01-01T12:00:00Z"
     }
   }

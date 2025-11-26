@@ -1,0 +1,14 @@
+# Framework Web Principal
+Django>=5.0,<6.0
+
+# Ferramenta para criar a API REST
+djangorestframework>=3.14
+
+# Conector do Banco de Dados PostgreSQL
+psycopg2-binary>=2.9
+
+# Middleware para permitir comunicação com o React (CORS)
+django-cors-headers>=4.3
+
+# Servidor de Aplicação WSGI (Necessário para rodar em produção/Docker)
+gunicorn>=21.2
